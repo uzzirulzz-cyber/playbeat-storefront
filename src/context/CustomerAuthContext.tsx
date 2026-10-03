@@ -307,8 +307,8 @@ export const CustomerAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       phone: phone || '+92 332 1049333',
       avatarUrl: undefined,
       memberTier: 'Silver',
-      rewardPoints: 500, // 500 bonus points on registration
-      memberSince: 'October 2026',
+      rewardPoints: 0,
+      memberSince: new Date().toLocaleDateString('en', { month: 'long', year: 'numeric' }),
       preferredCurrency: 'PKR',
       isVerified: true,
       notificationPrefs: {
@@ -318,6 +318,7 @@ export const CustomerAuthProvider: React.FC<{ children: ReactNode }> = ({ childr
       }
     };
 
+    setLicenses([]);
     setCustomer(newUser);
     setAuthModalOpen(false);
     return { success: true };

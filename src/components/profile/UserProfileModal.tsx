@@ -25,6 +25,11 @@ export const UserProfileModal: React.FC = () => {
   } = useCustomerAuth();
 
   const { orders } = useCommerce();
+  const customerOrders = customer
+    ? orders.filter(
+        (order) => order.customerEmail.trim().toLowerCase() === customer.email.trim().toLowerCase()
+      )
+    : [];
 
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [editingProfile, setEditingProfile] = useState(false);
@@ -349,13 +354,13 @@ export const UserProfileModal: React.FC = () => {
                 </p>
               </div>
 
-              {orders.length === 0 ? (
+              {customerOrders.length === 0 ? (
                 <div className="p-8 text-center bg-slate-950/60 rounded-2xl border border-slate-800 text-slate-400 text-xs">
                   No orders placed yet. Browse the catalog to grab exclusive subscriptions!
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {orders.slice(0, 5).map((order) => (
+                  {customerOrders.slice(0, 5).map((order) => (
                     <div
                       key={order.id}
                       className="p-4 rounded-2xl bg-[#091128]/70 border border-[#1b2b52] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs"
